@@ -38,6 +38,15 @@ $ terraform plan
 $ terraform apply
 ```
 
+# terraform 진행 절차
+
+> 1. 기본 VPC 정보 확인
+> 2. 기본 subnet 정보 확인
+> 3. ami ubuntu 20.04 정보 확인
+> 4. key_pair 생성
+> 5. security_group 생성 (ssh,http,mysql,was)
+> 6. 위 내용으로 aws ec2 인스턴스 생성
+
 # Single EC2 instance
 
 > https://github.com/nationminu/terraform-tutorial-aws.git
