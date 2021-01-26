@@ -25,7 +25,7 @@ resource "aws_instance" "ec2" {
     }
 
     tags = {
-        Name = "${local.vm_prefix} ${count.index}"
+        Name = "${local.vm_prefix}-${count.index+1}"
         Terraform   = "true"
         Environment = "dev"
         Organization = "semyeong" 
@@ -38,7 +38,7 @@ resource "aws_instance" "ec2" {
     connection {
         user = "ubuntu"
         host = self.public_ip
-        private_key = file(pathexpand("~/.ssh/id_rsa"))
+        private_key = file(pathexpand("./ssh/key.pem"))
         agent = "false"
         timeout = "5m"
     }
