@@ -4,13 +4,15 @@ provider "aws" {
 }
 
 locals {
-  user_data = <<EOF
-#!/bin/bash
-echo "Hello Terraform!"
-EOF
+    vm_prefix = "ec2" #CHANGEME
+    user_data = <<EOF
+    #!/bin/bash
+    echo "Hello Terraform!"
+    EOF 
 }
 
 resource "aws_instance" "ec2" { 
+    count                   = 3
     ami                     = "ami-0aef57767f5404a3c"
     instance_type           = "t2.micro"
     key_name                = "key-mwsong" 
@@ -23,28 +25,27 @@ resource "aws_instance" "ec2" {
     }
 
     tags = {
-        Name = "my-ec2"
+        Name = "${local.vm_prefix} ${count.index}"
         Terraform   = "true"
         Environment = "dev"
         Organization = "semyeong" 
     }   
-
+ 
     provisioner "local-exec" {
-        command = "echo myec2 ansible_host=${aws_instance.ec2.public_ip} ip=${aws_instance.ec2.private_ip}  >> inventory.txt"
+        command = "echo ${local.vm_prefix}-${count.index} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
     }
 
     connection {
         user = "ubuntu"
-        host = aws_instance.ec2.public_ip
-        private_key = "${file(pathexpand("~/.ssh/id_rsa"))}"
+        host = self.public_ip
+        private_key = file(pathexpand("~/.ssh/id_rsa"))
         agent = "false"
         timeout = "5m"
     }
     
     provisioner "remote-exec" {
         inline = [
-            "sudo yum -y update",
-            "hostname"
+            "sudo apt -y update" 
         ]
     }
 }

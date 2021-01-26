@@ -135,7 +135,7 @@ resource "aws_instance" "web" {
     }  
 
     provisioner "local-exec" {
-        command = "echo web-${count.index} ansible_host=${aws_instance.web[count.index].private_ip} ip=${aws_instance.web[count.index].public_ip}> > inventory.txt"
+        command = "echo web-${count.index} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
     }
 } 
 
@@ -161,7 +161,7 @@ resource "aws_instance" "was" {
     }  
 
     provisioner "local-exec" {
-        command = "echo was-${count.index} ansible_host=${aws_instance.was[count.index].private_ip} ip=${aws_instance.was[count.index].public_ip} >> inventory.txt"
+        command = "echo was-${count.index} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
     }
 }
   
@@ -187,7 +187,7 @@ resource "aws_instance" "db" {
     }   
 
     provisioner "local-exec" {
-        command = "echo db-${count.index} ansible_host=${aws_instance.db[count.index].public_ip} ip=${aws_instance.db[count.index].private_ip}  >> inventory.txt"
+        command = "echo db-${count.index} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
     }
 
     connection {
