@@ -14,7 +14,7 @@ export AWS_SECRET_ACCESS_KEY=xxx
 To run this example you need to execute:
 ```
 $ git clone https://github.com/nationminu/terraform-tutorial-aws.git
-$ cd terraform-tutorial
+$ cd terraform-tutorial-aws
 ```
 
 > main.tf <br>
@@ -72,7 +72,7 @@ $ terraform apply
 
 # Multiple EC2 instance
 
-> https://github.com/nationminu/terraform-tutorial-aws/cluster/
+> https://github.com/nationminu/terraform-tutorial-aws/tree/master/cluster/
 
 
 # Referer
