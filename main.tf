@@ -33,7 +33,7 @@ resource "aws_instance" "ec2" {
     }   
  
     provisioner "local-exec" {
-        command = "echo ${local.vm_prefix}-${count.index} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
+        command = "echo ${local.vm_prefix}-${count.index+1} ansible_host=${self.private_ip} ip=${self.public_ip} >> inventory.txt"
     }
 
     connection {
