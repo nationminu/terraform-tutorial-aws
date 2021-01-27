@@ -93,7 +93,7 @@ $ cd terraform-tutorial-aws
 
 > 다운로드 받은 키를 bastion 서버에 tutorial 디렉토리에 업로드.
 ```
-$ ssh -i Downloads/key-sample.pem ubuntu@52.16.60.42 "mkdir -p /home/ubuntu/terraform-tutorial-aws/ssh"
+$ ssh -i key-sample.pem ubuntu@52.16.60.42 "mkdir -p /home/ubuntu/terraform-tutorial-aws/ssh"
 $ scp -i key-sample.pem key-sample.pem ubuntu@52.16.60.42:/home/ubuntu/terraform-tutorial-aws/ssh/k
 ey.pem
 ```

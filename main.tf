@@ -5,6 +5,7 @@ provider "aws" {
 
 locals {
     vm_prefix = "ec2" #CHANGEME
+    vm_keyname = "key-sample" #CHANGEME
     user_data = <<EOF
     #!/bin/bash
     echo "Hello Terraform!"
@@ -15,7 +16,7 @@ resource "aws_instance" "ec2" {
     count                   = 3
     ami                     = "ami-0aef57767f5404a3c"
     instance_type           = "t2.micro"
-    key_name                = "key-mwsong" 
+    key_name                = local.vm_keyname
     vpc_security_group_ids  = ["sg-ff04ffa7"] 
     subnet_id               = "subnet-473c2f0f"
     associate_public_ip_address = true
