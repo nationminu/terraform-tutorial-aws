@@ -105,7 +105,8 @@ ey.pem
 > private_key -> 개인키가 있는 위치 지정
 ```
 locals {
-    vm_prefix = "ec2" #CHANGEME
+    vm_prefix = "example" #CHANGEME
+    vm_keyname = "key-sample" #CHANGEME
     user_data = <<EOF
     #!/bin/bash
     echo "Hello Terraform!"
@@ -116,7 +117,7 @@ resource "aws_instance" "ec2" {
     count                   = 3
     ami                     = "ami-0aef57767f5404a3c"
     instance_type           = "t2.micro"
-    key_name                = "key-sample" 
+    key_name                = local.vm_keyname
     vpc_security_group_ids  = ["sg-ff04ffa7"] 
     subnet_id               = "subnet-473c2f0f"
     associate_public_ip_address = true
@@ -139,7 +140,7 @@ resource "aws_instance" "ec2" {
     connection {
         user = "ubuntu"
         host = self.public_ip
-        private_key = file(pathexpand("~/.ssh/id_rsa"))
+        private_key = file(pathexpand("./ssh/key.pem"))
         agent = "false"
         timeout = "5m"
     }

@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 locals {
-    vm_prefix = "ec2" #CHANGEME
+    vm_prefix = "example" #CHANGEME
     vm_keyname = "key-sample" #CHANGEME
     user_data = <<EOF
     #!/bin/bash
